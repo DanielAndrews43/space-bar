@@ -1,0 +1,39 @@
+<html>
+
+<head>
+    <title>Spacebar</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1 id="total" style="font-size:200px;text-align:center;font-family:monospace;">0</h1>
+    <h3 id="number" style="font-size:100px;text-align:center;font-family:monospace;">0</h3>
+    <h4 id="percent" style="font-size:70px;text-align:center;font-family:monospace;">0%</h4>
+</body>
+
+<script>
+var count = 0;
+$(window).keypress(function (e) {
+  if (e.keyCode === 0 || e.keyCode === 32) {
+    e.preventDefault()
+    count += 1;
+    $('h3').text(count);
+
+    $.ajax({
+        url: '/addone',
+        type: 'GET',
+        contentType: 'application/json',
+        dataType: 'text',
+        success: function(totalCount) {
+            $('h1').text(totalCount);
+            $('h4').text((count / totalCount * 100).toFixed(3) + '%');
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            console.log('some error occured', xhr, ajaxOptions, thrownError);
+        }
+    });    
+  }
+})
+</script>
+
+</html>
