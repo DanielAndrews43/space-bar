@@ -31,11 +31,6 @@ router.get('/addone', function(req, res, next) {
     });
 });
 
-//If no other express route captures path, return a 404 page
-app.use(function (req, res, next) {
-    res.status(404).sendStatus("Sorry can't find that!")
-})
-
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
